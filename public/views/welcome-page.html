@@ -1,0 +1,80 @@
+<main role="main" class="container">
+    <div class="starter-template">
+        <h1>{{title}}</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Make</label>
+                    <select name="device-make" class="form-control" id="deviceMakeSelect" ng-model="device.make" ng-change="changeDevice()">
+                        <option ng-repeat="option in deviceList.makeList" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                    <label>Model</label>
+                    <select name="device-model" class="form-control" id="deviceModel" ng-model="device.model" ng-change="changeDevice()">
+                        <option ng-repeat="option in deviceList.modelList[device.make]" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                    <label>Price</label>
+                    <select name="device_price" class="form-control" id="device_price" ng-model="device.price" ng-change="changeDevice()">
+                        <option value="0">0-250</option>
+                        <option value="1">250-750</option>
+                        <option value="2">750-1000</option>
+                        <option value="3">1000-1500</option>
+                    </select>
+                    <label>Term of insurance</label>
+                    <select name="insurance_term" class="form-control" id="insurance_term" ng-model="device.term" ng-change="changeDevice()">
+                        <option value="1">1 year</option>
+                        <option value="2">2 year</option>
+                        <option value="3">3 year</option>
+                    </select>
+
+                    <div style="margin-top: 15px">
+                        <button id="getQuote" type="button" class="btn btn-primary" ng-click="getQuote()">Get Quote</button>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Your quote is: {{quote}}</label>
+                    <div>
+                        <a id="getInsured" href="#/insured?make={{device.make}}&model={{device.model}}&price={{device.price}}&term={{device.term}}&quote={{quote}}" class="btn btn-primary">Insured</a>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h4>You current insurance:</h4>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 id="card-title" class="card-title"></h5>
+                            <h6 id="card-subtitle" class="card-subtitle mb-2 text-muted"></h6>
+                            <p class="card-text">
+                                <span id="card-term-badge" class="badge badge-primary"></span>
+                                <span id="card-insurance-price-badge" class="badge badge-primary"></span>
+                                <br>
+                                <span id="card-insurance-claimed-badge" class="badge badge-danger"></span>
+                            </p>
+                            <button id="claim-btn" type="button" class="btn btn-outline-primary btn-sm" ng-click="claim()">Claim!</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <h4>Pool statistics:</h4>
+                    <span id="pool_balance"></span></br>
+                    <span id="pool_contracts"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+            </div>
+            <div class="row" style="margin-top: 15px">
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+                <div class="col-sm"></div>
+            </div>
+        </div>
+    </div>
+
+</main>
