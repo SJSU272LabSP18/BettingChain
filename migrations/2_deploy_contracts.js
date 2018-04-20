@@ -1,5 +1,5 @@
-var Protchain = artifacts.require("./Protchain.sol");
-
+var BettingEther= artifacts.require("./BettingEther.sol");
 module.exports = function(deployer) {
-  deployer.deploy(Protchain);
-};
+  deployer.deploy(BettingEther);
+}
+
