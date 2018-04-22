@@ -14,12 +14,12 @@ module.exports = function(grunt) {
         shell: {
             build: {
                 command: [
-                    'echo <%= secret.password %> | sudo -S whoami'
+                //    'echo <%= secret.password %> | sudo -S whoami'
                 ].join('&&')
             },
             build_docker_image: {
                 command: [
-                    'echo <%= secret.password %> | sudo -S whoami',
+                //    'echo <%= secret.password %> | sudo -S whoami',
                     'cd ' + home,
                     'sudo docker build --tag="gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>" .',
                     'sudo docker build --tag="gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>" .'
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
             },
             push_docker_image: {
                 command: [
-                    'echo <%= secret.password %> | sudo -S whoami',
+                //    'echo <%= secret.password %> | sudo -S whoami',
                     'echo "docker.devops"|sudo docker login',
                     'sudo docker push gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>',
                     'echo "docker.devops"|sudo docker login',
