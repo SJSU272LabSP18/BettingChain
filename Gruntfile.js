@@ -21,8 +21,8 @@ module.exports = function(grunt) {
                 command: [
                 //    'echo <%= secret.password %> | sudo -S whoami',
                     'cd ' + home,
-                    'sudo docker build --tag="gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>" .',
-                    'sudo docker build --tag="gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>" .'
+                    'docker build --tag="gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>" .',
+                    'docker build --tag="gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>" .'
                 ].join('&&'),
                 options: {
                     execOptions: {
@@ -33,10 +33,10 @@ module.exports = function(grunt) {
             push_docker_image: {
                 command: [
                 //    'echo <%= secret.password %> | sudo -S whoami',
-                    'echo "docker.devops"|sudo docker login',
-                    'sudo docker push gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>',
-                    'echo "docker.devops"|sudo docker login',
-                    'sudo docker push gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>'
+                    'echo "docker.devops"|docker login',
+                    'docker push gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>',
+                    'echo "docker.devops"|docker login',
+                    'docker push gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>'
                 ].join('&&')
             }
         },
