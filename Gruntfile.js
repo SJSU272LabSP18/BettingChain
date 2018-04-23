@@ -20,6 +20,7 @@ module.exports = function(grunt) {
             build_docker_image: {
                 command: [
                 //    'echo <%= secret.password %> | sudo -S whoami',
+                    'docker login -u gshivani08 -p dockerhub',
                     'cd ' + home,
                     'docker build --tag="gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>" .',
                     'docker build --tag="gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>" .'
@@ -34,6 +35,7 @@ module.exports = function(grunt) {
                 command: [
                 //    'echo <%= secret.password %> | sudo -S whoami',
                 //    'echo "gshivani08"|docker login',
+                    'docker login -u gshivani08 -p dockerhub',
                     'docker push gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>',
                 //    'echo "docker.devops"|docker login',
                     'docker push gshivani08/blockchain-lottery:<%= gitinfo.my.custom.command %>'
