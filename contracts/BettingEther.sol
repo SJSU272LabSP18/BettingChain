@@ -44,7 +44,7 @@ contract BettingEther {
     function insert_bet(string _betting_choice_color, uint _betting_choice_digit, uint _betting_amount) payable public {
 
       require(_betting_amount == msg.value);
-      require(_betting_choice_color == 'RED' || _betting_choice_color=='BLACK');
+      require(keccak256('RED') == keccak256(_betting_choice_color) || keccak256('BLACK') == keccak256(_betting_choice_color));
       require(_betting_choice_digit>=0 && _betting_choice_digit <=9);
       ticketCounter++;
       totalBettingAmount += _betting_amount;
@@ -79,11 +79,11 @@ contract BettingEther {
     //function to get winning address in red vs black game
     //change bytes to string
 
-    function display_winning_address(string _choice_color, uint _choice_digit) public returns (address) {
+    function transfer_winnings(string _choice_color, uint _choice_digit) public returns (address) {
       uint totalBettingAmountForWinningChoice;
       uint colorCode;
-      require(_betting_choice_color == 'RED' || _betting_choice_color=='BLACK');
-      require(_betting_choice_digit>=0 && _betting_choice_digit <=9);
+      require(keccak256('RED') == keccak256(_choice_color) || keccak256('BLACK') == keccak256(_choice_color));
+      require(_choice_digit>=0 && _choice_digit <=9);
       if(keccak256('RED') == keccak256(_choice_color))
       {
         colorCode=0;
@@ -137,8 +137,6 @@ contract BettingEther {
     }
     ticketCounter=0;
     totalBettingAmount=0;
-    totalRedBettingAmount=0;
-    totalBlackBettingAmount=0;
   }
 
 }
