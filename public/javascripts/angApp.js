@@ -21,8 +21,8 @@ angular
                 templateUrl: 'views/welcome-page.html',
                 controller: 'WelcomeCtrl'
             })
-            .when('/insured', {
-                templateUrl: 'views/insured.html',
+            .when('/game', {
+                templateUrl: 'views/game.html',
                 controller: 'InsuredCtrl'
             })
             .otherwise({
