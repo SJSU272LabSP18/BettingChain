@@ -1,59 +1,27 @@
 <main role="main" class="container">
     <div>
-        <h1>{{title}}</h1>
-        <div class="container" style="width: 400px">
 
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="first_name">First Name</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="user.name">
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="last_name">Last Name</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="user.lastname">
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="make">Make</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="device.make" disabled>
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="model">Model</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="device.model" disabled>
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="price">Device Price</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="device.devicePrice" disabled>
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="term">Term</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="device.term" disabled>
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="insurance_price">Insurance Price</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="device.insurancePrice" disabled>
-            </div>
-
-            <button id="insured" type="button" class="btn btn-primary" ng-click="insured()">Insured</button>
+    <div id="div1">
+        <div class="jumbotron">
+            <h1>Game 1:&nbsp;</h1>
+            <p><em>select a number between 1 to 99</em></p><input type="number">
+            <p><a class="btn btn-primary" role="button" href="#">make bid</a></p>
         </div>
+    </div>
+    <div id="div2">
+        <div class="jumbotron">
+            <h1>Game 2: &nbsp;</h1>
+            <p><button><img src="public/img/black glitter.jpg"></button>
+                <img src="public/img/eth img.png">
+                <button><img src="public/img/red glitter.jpg"></button>
+            </p>
+            <p><a class="btn btn-primary" role="button" href="#">make bid</a></p>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+
+
     </div>
 
 </main>
