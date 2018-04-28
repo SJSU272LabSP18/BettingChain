@@ -23,7 +23,7 @@ angular
             })
             .when('/game', {
                 templateUrl: 'views/game.html',
-                controller: 'InsuredCtrl'
+                controller: 'GamesCtrl'
             })
             .otherwise({
                 redirectTo: '/dashboard'

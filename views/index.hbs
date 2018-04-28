@@ -56,7 +56,7 @@
     <script type="text/javascript" src="javascripts/lib/web3.min.js"></script>
     <script type="text/javascript" src="javascripts/angApp.js"></script>
     <script type="text/javascript" src="javascripts/controller/welcomeCtrl.js"></script>
-    <script type="text/javascript" src="javascripts/controller/insuredCtrl.js"></script>
+    <script type="text/javascript" src="javascripts/controller/gamesCtrl.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -67,11 +67,11 @@
                 //    window.web3 = new Web3(web3.currentProvider);
             } else {
                 // set the provider you want from Web3.providers
-                web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
+                web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
                 window.web3 = new Web3(web3Provider);
             }
-            window.protchainContract = TruffleContract(protchainArtifact);
-            window.protchainContract.setProvider(web3Provider);
+            window.redBlackContract = TruffleContract(protchainArtifact);
+            window.redBlackContract.setProvider(web3Provider);
 
         });
 

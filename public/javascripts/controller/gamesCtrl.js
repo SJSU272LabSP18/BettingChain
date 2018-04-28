@@ -10,7 +10,7 @@
  */
 var protchainApp = angular.module('protchainApp');
 
-protchainApp.controller('InsuredCtrl', ['$scope', '$http', '$location', '$rootScope', '$routeParams',
+protchainApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope', '$routeParams',
     function ($scope, $http, $location, $rootScope, $routeParams) {
         var priceRange = ["0-250", "250-750", "750-1000", "1000-1500"];
         $scope.user = {
@@ -27,7 +27,7 @@ protchainApp.controller('InsuredCtrl', ['$scope', '$http', '$location', '$rootSc
         };
 
         $scope.insured = function () {
-            console.log("Insured name:" + $scope.user.name + " last name:" + $scope.user.lastname);
+            console.log("The bit was made:" + $scope.user.name + " last name:" + $scope.user.lastname);
             window.web3.eth.getCoinbase(function(err, account) {
                 if (err === null) {
                     var price = web3.toWei($scope.device.insurancePrice, "ether");
