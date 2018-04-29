@@ -2,14 +2,14 @@
 
 /**
  *
- * @name protchainApp
+ * @name lotteryApp
  * @description
- * # protchainApp
+ * # lotteryApp
  *
  * Main module of the application.
  */
 angular
-    .module('protchainApp', [
+    .module('lotteryApp', [
     //    'ngAnimate',
     //    'ngCookies',
         'ngResource',

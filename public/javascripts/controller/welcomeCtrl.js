@@ -4,15 +4,15 @@
  *
  * @name WelcomeCtrl
  * @description
- * # protchain WelcomeCtrl
+ * # lottery WelcomeCtrl
  *
  * Welcome Controller of the application.
  */
-var protchainApp = angular.module('protchainApp');
+var lotteryApp = angular.module('lotteryApp');
 
-protchainApp.controller('WelcomeCtrl', ['$scope', '$http', '$location', '$rootScope', '$routeParams',
+lotteryApp.controller('WelcomeCtrl', ['$scope', '$http', '$location', '$rootScope', '$routeParams',
     function ($scope, $http, $location, $rootScope, $routeParams) {
-        console.log("Contract:", window.protchainContract);
+        /*console.log("Contract:", window.protchainContract);
         $scope.balance = 0;
         var protchainInstance;
         window.protchainContract.deployed().then(function(instance){
@@ -126,5 +126,5 @@ protchainApp.controller('WelcomeCtrl', ['$scope', '$http', '$location', '$rootSc
                     });
                 }
             });
-        }
+        }*/
     }]);

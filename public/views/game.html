@@ -1,27 +1,40 @@
 <main role="main" class="container">
     <div>
-
-    <div id="div1">
-        <div class="jumbotron" align="center">
-            <h1>Game 1:&nbsp;</h1>
-            <p><em>select a number between 1 to 99</em></p><input type="number">
-            <p><a class="btn btn-primary" role="button" href="#">make bid</a></p>
+        <div id="div1">
+            <div class="jumbotron" align="center">
+                <h1>Game 1:&nbsp;</h1>
+                <p>
+                    <em>select a number between 1 to 99</em>
+                </p>
+                <input type="number">
+                <p>
+                    <a class="btn btn-primary" role="button" href="#" ng-click="makeBidGame1()" disabled>Make Bet</a>
+                </p>
+            </div>
+        </div>
+        <div id="div2">
+            <div class="jumbotron" align="center">
+                <h1>Game {{colorGame.gameNumber}}: &nbsp;
+                    <span id="active-span" class="badge badge-success invisible">active</span>
+                    <span id="inactive-span" class="badge badge-danger invisible">not running</span>
+                </h1>
+                <p>
+                    <button ng-click="blackBet()">
+                        <img src="./img/black glitter.jpeg" align= left height=200px width=200px>
+                    </button>
+                    <img src="./img/eth img.png" align="center">
+                    <button ng-click="redBet()">
+                        <img src="./img/red glitter.jpg" align= right height=200px width=200px>
+                    </button>
+                </p>
+                <p>
+                    <em>Your Bet:</em>
+                </p>
+                <input type="number" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="colorGame.eth">
+                <p>
+                    <button id="makeBetColorGameBtn" class="btn btn-primary" ng-click="makeBetForColorGame()" disabled>Make Bet</button>
+                </p>
+            </div>
         </div>
     </div>
-    <div id="div2">
-        <div class="jumbotron" align="center">
-            <h1>Game 2: &nbsp;</h1>
-            <p><button><img src="./img/black glitter.jpeg" align= left height=200px width=200px></button>
-                <img src="./img/eth img.png" align="center">
-                <button><img src="./img/red glitter.jpg" align= right height=200px width=200px></button>
-            </p>
-            <p><a class="btn btn-primary" role="button" href="#">make bid</a></p>
-        </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-
-
-    </div>
-
 </main>
