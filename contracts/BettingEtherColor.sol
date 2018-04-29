@@ -4,8 +4,8 @@ contract BettingEtherColor {
   // custom types
     struct Bet {
       uint id;
-      uint betting_amount;
       string betting_choice_color;
+      uint betting_amount;
       address better;
   }
 
@@ -52,19 +52,31 @@ contract BettingEtherColor {
 
   //insert bet for color game
   function insert_bet_color(string _betting_choice_color) payable public {
-      require(isGameRunning == true);
-      require(keccak256('RED') == keccak256(_betting_choice_color) || keccak256('BLACK') == keccak256(_betting_choice_color));
-      ticketCounter++;
-      totalBettingAmountColorGame += msg.value;
-      uint colorCode;
-      if(keccak256('RED') == keccak256(_betting_choice_color)) {
-          colorCode=0;
-      } else {
-          colorCode=1;
-      }
-      colorTotalAmount[colorCode] += msg.value;
-      bets[ticketCounter] = Bet(ticketCounter, msg.value, _betting_choice_color, msg.sender);
-      LogInsertColorBet(ticketCounter, msg.value, _betting_choice_color, msg.sender);
+
+    //require(_betting_amount == msg.value);
+    require(isGameRunning == true);
+    require(keccak256('RED') == keccak256(_betting_choice_color) || keccak256('BLACK') == keccak256(_betting_choice_color));
+    ticketCounter++;
+    totalBettingAmountColorGame += msg.value;
+    uint colorCode;
+    if(keccak256('RED') == keccak256(_betting_choice_color))
+    {
+      colorCode=0;
+    }
+    else
+    {
+      colorCode=1;
+    }
+
+    colorTotalAmount[colorCode] += msg.value;
+    bets[ticketCounter] = Bet(
+      ticketCounter,
+      _betting_choice_color,
+      msg.value,
+      msg.sender
+    );
+
+    LogInsertColorBet(ticketCounter,msg.value,_betting_choice_color,msg.sender);
   }
 
 
