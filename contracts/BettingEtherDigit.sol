@@ -86,7 +86,7 @@ contract BettingEtherDigit {
 
     //fetch bets
     function getPoolFee() public view returns(uint ) {
-        return totalBettingAmountColorGame*1/5;
+        return totalBettingAmountDigitGame*1/5;
     }
 
     //Add transfer winnings for digit game
@@ -95,7 +95,7 @@ contract BettingEtherDigit {
         require(_choice_digit>=0 && _choice_digit <=9);
 
         totalBettingAmountForWinningChoice = digitTotalAmount[_choice_digit];
-        totalBettingAmountDigitGame=totalBettingAmountDigitGame*4/5;
+        totalBettingAmountDigitGame = totalBettingAmountDigitGame*4/5;
 
         for(uint i = 1; i <= ticketCounter; i++) {
 
