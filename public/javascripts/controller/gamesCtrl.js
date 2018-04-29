@@ -15,11 +15,21 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
         $scope.colorGame = {
             color: "",
             eth: 0,
-            gameNumber: 0
+            gameNumber: 0,
+            totalBets: 0,
+            pool: 0,
+            redPool: 0,
+            redBets: 0,
+            blackPool: 0,
+            blackBets: 0,
+            poolFee: 0
         };
+        var contractInstance;
 
         window.redBlackContract.deployed().then(function(instance) {
+            contractInstance = instance;
             isGameRunning(instance);
+            getPoolStat(instance);
             return instance.gameNumber();
         }).then(function(gameNumber) {
             $scope.$apply(function () {
@@ -90,6 +100,67 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
             }).catch(function(err) {
                 console.error(err);
             });
+        }
+
+        function getTotalBets(instance) {
+            instance.ticketCounter().then(function(totalBets) {
+                $scope.$apply(function () {
+                    $scope.colorGame.totalBets = totalBets.toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getTotalPool(instance) {
+            instance.totalBettingAmountColorGame().then(function(totalPool) {
+                $scope.$apply(function () {
+                    $scope.colorGame.pool = web3.fromWei(totalPool, "ether").toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getRedPool(instance) {
+            instance.colorTotalAmount(0).then(function(redPool) {
+                console.log(redPool);
+                $scope.$apply(function () {
+                    $scope.colorGame.redPool = web3.fromWei(redPool, "ether").toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getBlackPool(instance) {
+            instance.colorTotalAmount(1).then(function(blackPool) {
+                console.log(blackPool);
+                $scope.$apply(function () {
+                    $scope.colorGame.blackPool = web3.fromWei(blackPool, "ether").toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getPoolFee(instance) {
+            instance.getPoolFee().then(function(fee) {
+                console.log(fee);
+                $scope.$apply(function () {
+                    $scope.colorGame.poolFee = web3.fromWei(fee, "ether").toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getPoolStat(instance) {
+            getTotalBets(instance);
+            getTotalPool(instance);
+            getRedPool(instance);
+            getBlackPool(instance);
+            getPoolFee(instance);
         }
     }
 ]);

@@ -14,10 +14,14 @@
         </div>
         <div id="div2">
             <div class="jumbotron" align="center">
-                <h1>Game {{colorGame.gameNumber}}: &nbsp;
-                    <span id="active-span" class="badge badge-success invisible">active</span>
-                    <span id="inactive-span" class="badge badge-danger invisible">not running</span>
-                </h1>
+                <h1>Game# {{colorGame.gameNumber}} &nbsp;</h1>
+                <span id="active-span" class="badge badge-success invisible">active</span>
+                <span id="inactive-span" class="badge badge-danger invisible">not running</span>
+                <span class="badge badge-pill badge-primary">All bets:{{colorGame.totalBets}}</span>
+                <span class="badge badge-info">Pool:{{colorGame.pool}}eth</span>
+                <span class="badge badge-danger">Red pool:{{colorGame.redPool}}&nbsp;eth</span>
+                <span class="badge badge-dark">Black poll:{{colorGame.blackPool}}&nbsp;eth</span>
+                <span class="badge badge-warning">Pool fee:{{colorGame.poolFee}}</span>
                 <p>
                     <button ng-click="blackBet()">
                         <img src="./img/black glitter.jpeg" align= left height=200px width=200px>
