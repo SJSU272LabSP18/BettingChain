@@ -25,6 +25,10 @@ angular
                 templateUrl: 'views/game.html',
                 controller: 'GamesCtrl'
             })
+            .when('/admin', {
+                templateUrl: 'views/admin.html',
+                controller: 'AdminCtrl'
+            })
             .otherwise({
                 redirectTo: '/dashboard'
             });
