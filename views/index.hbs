@@ -36,9 +36,9 @@
             </ul>
         </div>
     </nav>
-
-    <div class="ng-scope" ng-view=""></div>
-
+    <main role="main" class="container">
+        <div class="ng-scope" ng-view=""></div>
+    </main>
     <div class="footer-basic" align="center">
         <footer>
             <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
@@ -49,7 +49,7 @@
                 <li class="list-inline-item"><a href="#">Terms</a></li>
                 <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
             </ul>
-            <p class="copyright" style="color:rgb(115,10,10);">All rights reserved Astrum Project Team -15</p>
+            <div class="copyright" style="color:rgb(115,10,10);">All rights reserved Astrum Project Team -15</div>
         </footer>
     </div>
     <script type="text/javascript" src="javascripts/lib/truffle-contract.js"></script>
@@ -61,7 +61,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script>
         $.getJSON('BettingEtherColor.json', function(protchainArtifact) {
-            console.log(protchainArtifact);
             var web3Provider;
             if (typeof window.web3 !== 'undefined') {
                 web3Provider = window.web3.currentProvider;

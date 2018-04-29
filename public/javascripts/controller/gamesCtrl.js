@@ -19,9 +19,9 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
             totalBets: 0,
             pool: 0,
             redPool: 0,
-            redBets: 0,
+            redBets: [],
             blackPool: 0,
-            blackBets: 0,
+            blackBets: [],
             poolFee: 0
         };
         var contractInstance;
@@ -124,7 +124,6 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
 
         function getRedPool(instance) {
             instance.colorTotalAmount(0).then(function(redPool) {
-                console.log(redPool);
                 $scope.$apply(function () {
                     $scope.colorGame.redPool = web3.fromWei(redPool, "ether").toNumber();
                 });
@@ -135,7 +134,6 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
 
         function getBlackPool(instance) {
             instance.colorTotalAmount(1).then(function(blackPool) {
-                console.log(blackPool);
                 $scope.$apply(function () {
                     $scope.colorGame.blackPool = web3.fromWei(blackPool, "ether").toNumber();
                 });
@@ -146,12 +144,34 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
 
         function getPoolFee(instance) {
             instance.getPoolFee().then(function(fee) {
-                console.log(fee);
                 $scope.$apply(function () {
                     $scope.colorGame.poolFee = web3.fromWei(fee, "ether").toNumber();
                 });
             }).catch(function(err) {
                 console.error(err);
+            });
+        }
+
+        function getUserBets(instance) {
+            window.web3.eth.getCoinbase(function(err, account){
+                instance.getBetterDetailsByAddress(account).then(function(betIds) {
+                    $scope.colorGame.redBets = [];
+                    $scope.colorGame.blackBets = [];
+                    for(var i = 0; i < betIds.length; i++) {
+                        var betId = betIds[i];
+                        instance.bets(betId.toNumber()).then(function(userBet){
+                            $scope.$apply(function () {
+                                if(userBet[1] == "RED"){
+                                    $scope.colorGame.redBets.push({value: web3.fromWei(userBet[2], "ether").toNumber()})
+                                } else{
+                                    $scope.colorGame.blackBets.push({value: web3.fromWei(userBet[2], "ether").toNumber()})
+                                }
+                            });
+                        });
+                    }
+                }).catch(function(err) {
+                    console.error(err);
+                });
             });
         }
 
@@ -161,6 +181,7 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
             getRedPool(instance);
             getBlackPool(instance);
             getPoolFee(instance);
+            getUserBets(instance);
         }
     }
 ]);
