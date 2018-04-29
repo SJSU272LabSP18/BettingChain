@@ -1,8 +1,11 @@
 
 var lotteryApp = angular.module('lotteryApp');
 
-lotteryApp.controller('WelcomeCtrl', ['$scope', '$http', '$location', '$rootScope', '$routeParams',
+lotteryApp.controller('AdminCtrl', ['$scope', '$http', '$location', '$rootScope', '$routeParams',
     function ($scope, $http, $location, $rootScope, $routeParams) {
-
+$scope.openAdmin=function()
+{
+	
+}
 
     }]);
