@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Phone Insurance' });
+  res.render('index', { title: 'Eth Lottery' });
 });
 
 router.get('/getInsured', function(req, res, next) {
