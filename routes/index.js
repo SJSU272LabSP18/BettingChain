@@ -21,9 +21,9 @@ router.post('/getQuote', function(req, res, next) {
     });
 });
 
-router.post('/admin',passport.authenticate('local', { successRedirect: '/admin-page',
+/*router.post('/admin',passport.authenticate('local', { successRedirect: '/admin-page',
     failureRedirect: '/admin',
     failureFlash: true })
-);
+);*/
 
 module.exports = router;
