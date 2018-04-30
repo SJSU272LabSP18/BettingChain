@@ -1,7 +1,8 @@
 body {
-  padding-top: 5rem;
-  /*padding: 50px;*/
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    height: 100%;
+    padding-top: 5rem;
+    /*padding: 50px;*/
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -16,4 +17,34 @@ a {
 }
 .visible{
     display: block;
+}
+.center-block {
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+    text-align: center;
+}
+.color-game-header-row{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.color-game-footer-row{
+    margin-top: 50px;
+}
+.copyright{
+    font-size: 12px;
+    color:rgb(115,10,10);
+}
+.footer-basic{
+    background-color: #f5f5f5;
+    margin-top: 70px;
+}
+.make-bet-btn {
+    margin-top: 15px;
+}
+.red-bets-list{
+    list-style-type: none;
+}
+.black-bets-list{
+    list-style-type: none;
 }

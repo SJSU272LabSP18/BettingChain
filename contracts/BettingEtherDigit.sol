@@ -50,22 +50,21 @@ contract BettingEtherDigit {
 
 
     //insert bet for digit game
-    function insert_bet_digit(uint _betting_choice_digit, uint _betting_amount) payable public {
+    function insert_bet_digit(uint _betting_choice_digit) payable public {
 
-        require(_betting_amount == msg.value);
         require(_betting_choice_digit>=0 && _betting_choice_digit <=9);
         ticketCounter++;
-        totalBettingAmountDigitGame += _betting_amount;
+        totalBettingAmountDigitGame += msg.value;
 
-        digitTotalAmount[_betting_choice_digit] += _betting_amount;
+        digitTotalAmount[_betting_choice_digit] += msg.value;
         bets[ticketCounter] = Bet(
             ticketCounter,
-            _betting_amount,
+            msg.value,
             _betting_choice_digit,
             msg.sender
         );
 
-        LogInsertDigitBet(ticketCounter,_betting_amount,_betting_choice_digit,msg.sender);
+        LogInsertDigitBet(ticketCounter,msg.value,_betting_choice_digit,msg.sender);
     }
 
 
@@ -86,7 +85,7 @@ contract BettingEtherDigit {
 
     //fetch bets
     function getPoolFee() public view returns(uint ) {
-        return totalBettingAmountColorGame*1/5;
+        return totalBettingAmountDigitGame*1/5;
     }
 
     //Add transfer winnings for digit game
@@ -127,7 +126,6 @@ contract BettingEtherDigit {
     }
 
     //function to clear all bets
-    //deals with color game only as of now
     function clearAllBets() private {
         for(uint i = 1; i<= ticketCounter;i++) {
             delete bets[i];

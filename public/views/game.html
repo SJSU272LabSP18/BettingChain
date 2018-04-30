@@ -1,6 +1,63 @@
-<main role="main" class="container">
-    <div>
-        <div id="div1">
+    <div class="row color-game-header-row">
+        <div class="col-2"></div>
+        <div class="col-3"></div>
+        <div class="col-2 center-block">
+            <h2>Game# {{colorGame.gameNumber}}</h2>
+            <div><span id="active-span" class="badge badge-success invisible">active</span></div>
+            <div><span id="inactive-span" class="badge badge-danger invisible">not running</span></div>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-2 center-block">
+            <span class="badge badge-dark">Black poll:{{colorGame.blackPool}}&nbsp;eth</span>
+            <h4>Your Bets:</h4>
+            <ul class="black-bets-list">
+                <li ng-repeat="blackBet in colorGame.blackBets">
+                    <div><span class="badge badge-pill badge-dark">{{blackBet.value}}</span></div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3 center-block">
+            <button ng-click="blackBet()">
+                <img src="./img/black glitter.jpeg" align= left height=200px width=200px>
+            </button>
+        </div>
+        <div class="col-2 center-block" >
+            <div><span class="badge badge-pill badge-primary">All bets:{{colorGame.totalBets}}</span></div>
+            <div><span class="badge badge-info">Pool:{{colorGame.pool}}eth</span></div>
+            <div><span class="badge badge-warning">Pool fee:{{colorGame.poolFee}}%</span></div>
+            <img src="./img/eth img.png" align="center" width=130px>
+        </div>
+        <div class="col-3 center-block">
+            <button ng-click="redBet()">
+                <img src="./img/red glitter.jpg" align= right height=200px width=200px>
+            </button>
+        </div>
+        <div class="col-2 center-block">
+            <span class="badge badge-danger">Red pool:{{colorGame.redPool}}&nbsp;eth</span>
+            <h4>Your Bets:</h4>
+            <ul class="red-bets-list">
+                <li ng-repeat="redBet in colorGame.redBets">
+                    <div><span class="badge badge-pill badge-danger">{{redBet.value}}</span></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row color-game-footer-row">
+        <div class="col-2"></div>
+        <div class="col-3"></div>
+        <div class="col-2 center-block">
+            <em>Your Bet:</em>
+            <input type="number" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="colorGame.eth">
+            <button id="makeBetColorGameBtn" class="btn btn-primary make-bet-btn" ng-click="makeBetForColorGame()" disabled>Make Bet</button>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-2"></div>
+    </div>
+
+<!--<div id="div1">
             <div class="jumbotron" align="center">
                 <h1>Game 1:&nbsp;</h1>
                 <p>
@@ -11,30 +68,4 @@
                     <a class="btn btn-primary" role="button" href="#" ng-click="makeBidGame1()" disabled>Make Bet</a>
                 </p>
             </div>
-        </div>
-        <div id="div2">
-            <div class="jumbotron" align="center">
-                <h1>Game {{colorGame.gameNumber}}: &nbsp;
-                    <span id="active-span" class="badge badge-success invisible">active</span>
-                    <span id="inactive-span" class="badge badge-danger invisible">not running</span>
-                </h1>
-                <p>
-                    <button ng-click="blackBet()">
-                        <img src="./img/black glitter.jpeg" align= left height=200px width=200px>
-                    </button>
-                    <img src="./img/eth img.png" align="center">
-                    <button ng-click="redBet()">
-                        <img src="./img/red glitter.jpg" align= right height=200px width=200px>
-                    </button>
-                </p>
-                <p>
-                    <em>Your Bet:</em>
-                </p>
-                <input type="number" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="colorGame.eth">
-                <p>
-                    <button id="makeBetColorGameBtn" class="btn btn-primary" ng-click="makeBetForColorGame()" disabled>Make Bet</button>
-                </p>
-            </div>
-        </div>
-    </div>
-</main>
+        </div>-->

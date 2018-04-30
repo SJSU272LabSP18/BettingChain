@@ -15,18 +15,21 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
         $scope.colorGame = {
             color: "",
             eth: 0,
-            gameNumber: 0
+            gameNumber: 0,
+            totalBets: 0,
+            pool: 0,
+            redPool: 0,
+            redBets: [],
+            blackPool: 0,
+            blackBets: [],
+            poolFee: 0
         };
+        var contractInstance;
 
         window.redBlackContract.deployed().then(function(instance) {
-            isGameRunning(instance);
-            return instance.gameNumber();
-        }).then(function(gameNumber) {
-            $scope.$apply(function () {
-                $scope.colorGame.gameNumber = gameNumber.toNumber();
-            });
-        }).catch(function(err) {
-            console.error(err);
+            contractInstance = instance;
+            getPoolStat(instance);
+            listenEvents(instance);
         });
 
         /** Public functions **/
@@ -90,6 +93,122 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
             }).catch(function(err) {
                 console.error(err);
             });
+        }
+
+        function getTotalBets(instance) {
+            instance.ticketCounter().then(function(totalBets) {
+                $scope.$apply(function () {
+                    $scope.colorGame.totalBets = totalBets.toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getTotalPool(instance) {
+            instance.totalBettingAmountColorGame().then(function(totalPool) {
+                $scope.$apply(function () {
+                    $scope.colorGame.pool = web3.fromWei(totalPool, "ether").toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getRedPool(instance) {
+            instance.colorTotalAmount(0).then(function(redPool) {
+                $scope.$apply(function () {
+                    $scope.colorGame.redPool = web3.fromWei(redPool, "ether").toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getBlackPool(instance) {
+            instance.colorTotalAmount(1).then(function(blackPool) {
+                $scope.$apply(function () {
+                    $scope.colorGame.blackPool = web3.fromWei(blackPool, "ether").toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getPoolFee(instance) {
+            instance.poolFee().then(function(fee) {
+                $scope.$apply(function () {
+                    $scope.colorGame.poolFee = fee.toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getGameNumber(instance) {
+            instance.gameNumber().then(function(gameNumber) {
+                $scope.$apply(function () {
+                    $scope.colorGame.gameNumber = gameNumber.toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getUserBets(instance) {
+            window.web3.eth.getCoinbase(function(err, account){
+                instance.getBetterDetailsByAddress(account).then(function(betIds) {
+                    $scope.colorGame.redBets = [];
+                    $scope.colorGame.blackBets = [];
+                    for(var i = 0; i < betIds.length; i++) {
+                        var betId = betIds[i];
+                        instance.bets(betId.toNumber()).then(function(userBet){
+                            $scope.$apply(function () {
+                                if(userBet[1] == "RED"){
+                                    $scope.colorGame.redBets.push({value: web3.fromWei(userBet[2], "ether").toNumber()})
+                                } else{
+                                    $scope.colorGame.blackBets.push({value: web3.fromWei(userBet[2], "ether").toNumber()})
+                                }
+                            });
+                        });
+                    }
+                }).catch(function(err) {
+                    console.error(err);
+                });
+            });
+        }
+
+        function getPoolStat(instance) {
+            isGameRunning(instance);
+            getGameNumber(instance);
+            getTotalBets(instance);
+            getTotalPool(instance);
+            getRedPool(instance);
+            getBlackPool(instance);
+            getPoolFee(instance);
+            getUserBets(instance);
+        }
+
+        function listenEvents(instance){
+            instance.LogInsertColorBet({}, {}).watch(function(error, event) {
+                if (!error) {
+                    console.log(event);
+                    console.log(event.args.timestamp.toNumber());
+                    console.log("Bet was made");
+                } else {
+                    console.error(error);
+                }
+                getPoolStat(instance);
+            });
+            /*instance.LogGameClosed({}, {}).watch(function(error, event) {
+                if (!error) {
+                    console.log(event);
+                //    window.alert("The Game closed, the winner color is " + event.args.winningColor);
+                } else {
+                    console.error(error);
+                }
+                getPoolStat(instance);
+            });*/
         }
     }
 ]);
