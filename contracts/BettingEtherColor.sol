@@ -7,14 +7,19 @@ contract BettingEtherColor {
         string betting_choice_color;
         uint betting_amount;
         address better;
+        uint gameId;
+        uint winValue;
     }
 
     mapping(uint => Bet) public bets;
+    mapping(uint => Bet) public oldBets;
+    uint public oldBetsCounter;
     Bet[] betArray;
     uint public ticketCounter;
     uint public totalBettingAmountColorGame;
     uint public gameNumber;
     bool public isGameRunning;
+    uint public poolFee;
 
 
     mapping(uint => uint) public colorTotalAmount; //0 =RED | 1=BLACK
@@ -27,17 +32,26 @@ contract BettingEtherColor {
         uint indexed_id,
         uint _betting_amount,
         string _betting_choice_color,
-        address _better
+        address _better,
+        uint timestamp
+    );
+
+    event LogGameClosed(
+        uint gameId,
+        string winningColor,
+        uint timestamp
     );
 
     event AnyException(string message);
 
-      //constructor
-      function BettingEtherColor() public {
-          organiser = msg.sender;
-          isGameRunning=false;
-          gameNumber=0;
-      }
+    //constructor
+    function BettingEtherColor() public {
+        organiser = msg.sender;
+        isGameRunning = false;
+        gameNumber = 0;
+        poolFee = 1;
+    }
+
     // deactivate the contract
     function kill() public {
         // only allow the contract owner
@@ -45,7 +59,7 @@ contract BettingEtherColor {
         selfdestruct(organiser);
     }
     function start_game() public {
-        isGameRunning=true;
+        isGameRunning = true;
         gameNumber += 1;
     }
 
@@ -63,8 +77,32 @@ contract BettingEtherColor {
             colorCode=1;
         }
         colorTotalAmount[colorCode] += msg.value;
-        bets[ticketCounter] = Bet(ticketCounter, _betting_choice_color, msg.value, msg.sender);
-        LogInsertColorBet(ticketCounter,msg.value,_betting_choice_color,msg.sender);
+        bets[ticketCounter] = Bet(ticketCounter, _betting_choice_color, msg.value, msg.sender, gameNumber, 0);
+        LogInsertColorBet(ticketCounter, msg.value, _betting_choice_color, msg.sender, block.timestamp);
+    }
+
+    function closeGame(string winningColor) public {
+        require(organiser == msg.sender);
+        uint winningColorPool;
+        if(keccak256('RED') == keccak256(winningColor)) {
+            winningColorPool = colorTotalAmount[0];
+        } else {
+            winningColorPool = colorTotalAmount[1];
+        }
+        for(uint i = 1; i <= ticketCounter; i++) {
+            if(keccak256(bets[i].betting_choice_color) == keccak256(winningColor)){
+                bets[i].winValue = (bets[i].betting_amount * totalBettingAmountColorGame) / winningColorPool;
+                bets[i].better.transfer(bets[i].winValue - bets[i].winValue / 100 * poolFee);
+            } else {
+                bets[i].winValue = 0;
+            }
+            oldBetsCounter++;
+            oldBets[oldBetsCounter] = bets[i];
+        }
+        clearAllBets();
+        isGameRunning = false;
+
+        LogGameClosed(gameNumber, winningColor, block.timestamp);
     }
 
     //function to get winning address in red vs black
@@ -103,11 +141,6 @@ contract BettingEtherColor {
     //fetch pool balance
     function getPoolBalance() public view returns(uint) {
         return totalBettingAmountColorGame;
-    }
-
-    //fetch bets
-    function getPoolFee() public view returns(uint ) {
-        return totalBettingAmountColorGame*1/5;
     }
 
     //return function with address and bets on current game

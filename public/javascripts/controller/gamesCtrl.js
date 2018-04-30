@@ -28,15 +28,8 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
 
         window.redBlackContract.deployed().then(function(instance) {
             contractInstance = instance;
-            isGameRunning(instance);
             getPoolStat(instance);
-            return instance.gameNumber();
-        }).then(function(gameNumber) {
-            $scope.$apply(function () {
-                $scope.colorGame.gameNumber = gameNumber.toNumber();
-            });
-        }).catch(function(err) {
-            console.error(err);
+            listenEvents(instance);
         });
 
         /** Public functions **/
@@ -143,9 +136,19 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
         }
 
         function getPoolFee(instance) {
-            instance.getPoolFee().then(function(fee) {
+            instance.poolFee().then(function(fee) {
                 $scope.$apply(function () {
-                    $scope.colorGame.poolFee = web3.fromWei(fee, "ether").toNumber();
+                    $scope.colorGame.poolFee = fee.toNumber();
+                });
+            }).catch(function(err) {
+                console.error(err);
+            });
+        }
+
+        function getGameNumber(instance) {
+            instance.gameNumber().then(function(gameNumber) {
+                $scope.$apply(function () {
+                    $scope.colorGame.gameNumber = gameNumber.toNumber();
                 });
             }).catch(function(err) {
                 console.error(err);
@@ -176,12 +179,36 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
         }
 
         function getPoolStat(instance) {
+            isGameRunning(instance);
+            getGameNumber(instance);
             getTotalBets(instance);
             getTotalPool(instance);
             getRedPool(instance);
             getBlackPool(instance);
             getPoolFee(instance);
             getUserBets(instance);
+        }
+
+        function listenEvents(instance){
+            instance.LogInsertColorBet({}, {}).watch(function(error, event) {
+                if (!error) {
+                    console.log(event);
+                    console.log(event.args.timestamp.toNumber());
+                    console.log("Bet was made");
+                } else {
+                    console.error(error);
+                }
+                getPoolStat(instance);
+            });
+            /*instance.LogGameClosed({}, {}).watch(function(error, event) {
+                if (!error) {
+                    console.log(event);
+                //    window.alert("The Game closed, the winner color is " + event.args.winningColor);
+                } else {
+                    console.error(error);
+                }
+                getPoolStat(instance);
+            });*/
         }
     }
 ]);
