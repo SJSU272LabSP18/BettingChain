@@ -146,9 +146,9 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
         }
 
         function getGameNumber(instance) {
-            instance.gameNumber().then(function(gameNumber) {
+            instance.getGameId().then(function(gameNumber) {
                 $scope.$apply(function () {
-                    $scope.colorGame.gameNumber = gameNumber.toNumber();
+                    $scope.colorGame.gameNumber = gameNumber.toNumber() != 0?gameNumber.toNumber():null;
                 });
             }).catch(function(err) {
                 console.error(err);
@@ -158,8 +158,10 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
         function getUserBets(instance) {
             window.web3.eth.getCoinbase(function(err, account){
                 instance.getBetterDetailsByAddress(account).then(function(betIds) {
-                    $scope.colorGame.redBets = [];
-                    $scope.colorGame.blackBets = [];
+                    $scope.$apply(function () {
+                        $scope.colorGame.redBets = [];
+                        $scope.colorGame.blackBets = [];
+                    });
                     for(var i = 0; i < betIds.length; i++) {
                         var betId = betIds[i];
                         instance.bets(betId.toNumber()).then(function(userBet){
@@ -192,23 +194,30 @@ lotteryApp.controller('GamesCtrl', ['$scope', '$http', '$location', '$rootScope'
         function listenEvents(instance){
             instance.LogInsertColorBet({}, {}).watch(function(error, event) {
                 if (!error) {
-                    console.log(event);
-                    console.log(event.args.timestamp.toNumber());
-                    console.log("Bet was made");
                 } else {
                     console.error(error);
                 }
                 getPoolStat(instance);
             });
-            /*instance.LogGameClosed({}, {}).watch(function(error, event) {
+            instance.LogGameClosed({}, {}).watch(function(error, event) {
                 if (!error) {
-                    console.log(event);
-                //    window.alert("The Game closed, the winner color is " + event.args.winningColor);
+                    if($scope.colorGame.gameNumber === event.args.gameId.toNumber()){
+                        window.alert("The Game closed, the winner color is " + event.args.winningColor);
+                    }
                 } else {
                     console.error(error);
                 }
                 getPoolStat(instance);
-            });*/
+            });
+            instance.LogGameStarted({}, {}).watch(function(error, event) {
+                if (!error) {
+                    if($scope.colorGame.gameNumber !== event.args.gameId.toNumber()){
+                        getPoolStat(instance);
+                    }
+                } else {
+                    console.error(error);
+                }
+            });
         }
     }
 ]);

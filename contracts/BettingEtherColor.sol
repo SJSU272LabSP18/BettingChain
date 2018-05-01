@@ -38,8 +38,11 @@ contract BettingEtherColor {
 
     event LogGameClosed(
         uint gameId,
-        string winningColor,
-        uint timestamp
+        string winningColor
+    );
+
+    event LogGameStarted(
+        uint gameId
     );
 
     event AnyException(string message);
@@ -61,8 +64,16 @@ contract BettingEtherColor {
     function start_game() public {
         isGameRunning = true;
         gameNumber += 1;
+        LogGameStarted(gameNumber);
     }
 
+    function getGameId() public view returns(uint) {
+        if(isGameRunning){
+            return gameNumber;
+        }
+
+        return 0;
+    }
 
     //insert bet for color game
     function insert_bet_color(string _betting_choice_color) payable public {
@@ -81,7 +92,8 @@ contract BettingEtherColor {
         LogInsertColorBet(ticketCounter, msg.value, _betting_choice_color, msg.sender, block.timestamp);
     }
 
-    function closeGame(string winningColor) public {
+    //function to get winning address in red vs black
+    function transfer_winnings_color_game(string _choice_color) public returns (address) {
         require(organiser == msg.sender);
         uint winningColorPool;
         if(keccak256('RED') == keccak256(winningColor)) {
@@ -93,6 +105,7 @@ contract BettingEtherColor {
             if(keccak256(bets[i].betting_choice_color) == keccak256(winningColor)){
                 bets[i].winValue = (bets[i].betting_amount * totalBettingAmountColorGame) / winningColorPool;
                 bets[i].better.transfer(bets[i].winValue - bets[i].winValue / 100 * poolFee);
+                organiser.transfer(bets[i].winValue / 100 * poolFee);
             } else {
                 bets[i].winValue = 0;
             }
@@ -102,30 +115,7 @@ contract BettingEtherColor {
         clearAllBets();
         isGameRunning = false;
 
-        LogGameClosed(gameNumber, winningColor, block.timestamp);
-    }
-
-    //function to get winning address in red vs black
-    function transfer_winnings_color_game(string _choice_color) public returns (address) {
-        uint totalBettingAmountForWinningChoice;
-        uint colorCode;
-        require(keccak256('RED') == keccak256(_choice_color) || keccak256('BLACK') == keccak256(_choice_color));
-        if(keccak256('RED') == keccak256(_choice_color)) {
-            colorCode=0;
-        } else {
-            colorCode=1;
-        }
-        totalBettingAmountForWinningChoice=colorTotalAmount[colorCode];
-        totalBettingAmountColorGame=totalBettingAmountColorGame*4/5;
-        for(uint i = 1; i <= ticketCounter; i++) {
-            if(keccak256(_choice_color) == keccak256(bets[i].betting_choice_color)) {
-                uint refund = (bets[i].betting_amount*totalBettingAmountColorGame/totalBettingAmountForWinningChoice);
-                bets[i].better.transfer(refund);
-            }
-        }
-        clearAllBets();
-        isGameRunning=false;
-        return(msg.sender);
+        LogGameClosed(gameNumber, winningColor);
     }
 
     //fetch number of bets in the contract
