@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 
 
 /* GET home page. */
@@ -21,6 +22,28 @@ router.post('/getQuote', function(req, res, next) {
     });
 });
 
+router.get('/login',
+    function(req, res){
+        res.render('login');
+    });
+
+router.post('/login',
+    passport.authenticate('local', { failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/admin');
+    });
+
+router.get('/logout',
+    function(req, res){
+        req.logout();
+        res.redirect('/login');
+    });
+
+router.get('/admin',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res){
+        res.render('admin', { user: req.user });
+    });
 /*router.post('/admin',passport.authenticate('local', { successRedirect: '/admin-page',
     failureRedirect: '/admin',
     failureFlash: true })

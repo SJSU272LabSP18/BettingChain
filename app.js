@@ -6,9 +6,38 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+
+
+var passport = require('passport');
+var session = require('express-session');
+var Strategy = require('passport-local').Strategy;
 
 var app = express();
+
+const user = {
+    username: 'user',
+    password: 'password',
+    id: 1
+};
+passport.use(new Strategy(
+    function(username, password, cb) {
+        if(username == user.username && password == user.password ){
+            return cb(null, user);
+        }
+        return cb(null, false);
+    }));
+
+passport.serializeUser(function(user, cb) {
+    cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+    cb(null, user);
+});
+
+app.use(session({secret: 'secret'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'build/contracts')));
 
 app.use('/', index);
-app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
