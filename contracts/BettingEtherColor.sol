@@ -93,7 +93,7 @@ contract BettingEtherColor {
     }
 
     //function to get winning address in red vs black
-    function transfer_winnings_color_game(string _choice_color) public returns (address) {
+    function transfer_winnings_color_game(string winningColor) public returns (address) {
         require(organiser == msg.sender);
         uint winningColorPool;
         if(keccak256('RED') == keccak256(winningColor)) {
