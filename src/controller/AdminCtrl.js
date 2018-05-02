@@ -1,8 +1,10 @@
+
 var adminController = {
+
 
 stopGame: function(req,res){
 
-	var arr = ['red','black'];
+	var arr = ['RED','BLACK'];
     var winner = arr[Math.floor(Math.random() * arr.length)]; 
     res.send(winner);
 

@@ -59,14 +59,49 @@
         <div class="copyright" style="color:rgb(115,10,10);">All rights reserved Astrum Project Team -15</div>
     </footer>
 </div>
+<script type="text/javascript" src="javascripts/lib/truffle-contract.js"></script>
+<script type="text/javascript" src="javascripts/lib/web3.min.js"></script>
 <script>
+    $.getJSON('BettingEtherColor.json', function(protchainArtifact) {
+        var web3Provider;
+        if (typeof window.web3 !== 'undefined') {
+            web3Provider = window.web3.currentProvider;
+            //    window.web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+            window.web3 = new Web3(web3Provider);
+        }
+        window.redBlackContract = TruffleContract(protchainArtifact);
+        window.redBlackContract.setProvider(web3Provider);
+    });
+
     function startgame()
     {
+        window.redBlackContract.deployed().then(function(instance) {
+            return instance.start_game();
+        }).then(function(result) {
+            console.log("Game started");
+        }).catch(function(err) {
+            console.error(err);
+        });
         console.log("game started");
     }
+
 function stopgame()
 {
       $.ajax({url: "rest/admin/stop/game?_" + new Date(), success: function(result){
+          window.web3.eth.getCoinbase(function(err, account) {
+              if (err === null) {
+                  window.redBlackContract.deployed().then(function(instance) {
+                      return instance.transfer_winnings_color_game(result, {from: account, gas: 800000});
+                  }).then(function(result) {
+                      console.log("Game stopped");
+                  }).catch(function(err) {
+                      console.error(err);
+                  });
+              }
+          });
         console.log(result);
         document.getElementById("demo").innerHTML=result;
     }});
