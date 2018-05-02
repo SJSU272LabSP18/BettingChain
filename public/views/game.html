@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <div class="row color-game-header-row">
         <div class="col-2"></div>
         <div class="col-3"></div>
@@ -20,7 +21,7 @@
             </ul>
         </div>
         <div class="col-3 center-block">
-            <button ng-click="blackBet()">
+            <button class="w3-button w3-black" ng-click="blackBet()">
                 <img src="./img/black glitter.jpeg" align= left height=200px width=200px>
             </button>
         </div>
@@ -31,7 +32,7 @@
             <img src="./img/eth img.png" align="center" width=130px>
         </div>
         <div class="col-3 center-block">
-            <button ng-click="redBet()">
+            <button class="w3-button w3-black" ng-click="redBet()">
                 <img src="./img/red glitter.jpg" align= right height=200px width=200px>
             </button>
         </div>
@@ -51,11 +52,12 @@
         <div class="col-2 center-block">
             <em>Your Bet:</em>
             <input type="number" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="colorGame.eth">
-            <button id="makeBetColorGameBtn" class="btn btn-primary make-bet-btn" ng-click="makeBetForColorGame()" disabled>Make Bet</button>
+            <button id="makeBetColorGameBtn" class="btn btn-primary make-bet-btn" ng-click="makeBetForColorGame()" disabled="">Make Bet</button>
         </div>
         <div class="col-3"></div>
         <div class="col-2"></div>
     </div>
+
 
 <!--<div id="div1">
             <div class="jumbotron" align="center">
