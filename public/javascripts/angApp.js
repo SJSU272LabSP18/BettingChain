@@ -25,6 +25,19 @@ angular
                 templateUrl: 'views/game.html',
                 controller: 'GamesCtrl'
             })
+            .when('/About-us',{
+                templateUrl:'views/About-us.html'
+                
+            })
+            .when('/statistics', {
+                templateUrl: 'views/statistics.html',
+                controller: 'statisticsCtrl'
+            })
+
+            .when('/admin-prof',{
+                templateUrl:'views/admin-prof.html'
+                
+            })
             .otherwise({
                 redirectTo: '/dashboard'
             });

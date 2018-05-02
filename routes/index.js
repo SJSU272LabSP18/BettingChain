@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-
+var adminctrl = require('../src/controller/AdminCtrl')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Astrum Lottery' });
@@ -21,6 +21,11 @@ router.post('/getQuote', function(req, res, next) {
         theft_protection: req.param('theft_protection') != null?req.param('theft_protection'):'none'
     });
 });
+
+router.get('/rest/admin/stop/game', function(req, res){
+    adminctrl.stopGame(req, res)
+});
+
 
 router.get('/login',
     function(req, res){

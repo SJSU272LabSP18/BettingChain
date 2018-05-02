@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="stylesheets/style.css">
-
+    
 </head>
+
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">Astrum</a>
@@ -27,9 +28,21 @@
         </ul>
     </div>
 </nav>
-<main role="main" class="container">
+
+<main role="main" class="container" style="background-image: url(./img/blockchain.jpg)">
+    <div class="starter-template">
+     <div class="jumbotron" id="main">
+        <h1 style="text-align:center;color:rgb(0,0,4);">Astrum Online Crypto Lottery</h1>
+        <p></p>
+        <p><a class="btn btn-primary" role="button" style="background-color:rgb(249,225,5);color:rgb(1,1,16);"><strong>start game</strong></a></p>
+       <button onclick="stopgame()" > Stop game </button>
+
+    </div>
+    <div></div>
+    </div>
 
 </main>
+
 <div class="footer-basic" align="center">
     <footer>
         <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
@@ -44,7 +57,12 @@
     </footer>
 </div>
 <script>
-
+function stopgame()
+{
+      $.ajax({url: "rest/admin/stop/game?_" + new Date(), success: function(result){
+        console.log(result);
+    }});
+}
 
 </script>
 
