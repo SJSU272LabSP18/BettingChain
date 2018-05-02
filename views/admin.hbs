@@ -29,16 +29,19 @@
     </div>
 </nav>
 
-<main role="main" class="container" style="background-image: url(./img/blockchain.jpg)">
+<main role="main" class="container">
     <div class="starter-template">
      <div class="jumbotron" id="main">
         <h1 style="text-align:center;color:rgb(0,0,4);">Astrum Online Crypto Lottery</h1>
         <p></p>
-        <p><a class="btn btn-primary" role="button" style="background-color:rgb(249,225,5);color:rgb(1,1,16);"><strong>start game</strong></a></p>
-       <button onclick="stopgame()" > Stop game </button>
+        
+        <button class="btn btn-primary" onclick="startgame()">Start game </button>
+       <button class="btn btn-primary" onclick="stopgame()" > Stop game </button>
+       <p id="winner"></p>
 
     </div>
-    <div></div>
+    <h3>And the winner is: </h3>
+    <div id="demo"></div>
     </div>
 
 </main>
@@ -57,10 +60,15 @@
     </footer>
 </div>
 <script>
+    function startgame()
+    {
+        console.log("game started");
+    }
 function stopgame()
 {
       $.ajax({url: "rest/admin/stop/game?_" + new Date(), success: function(result){
         console.log(result);
+        document.getElementById("demo").innerHTML=result;
     }});
 }
 
