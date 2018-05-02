@@ -1,4 +1,13 @@
+'use strict';
 
+const fs = require('fs');
+
+var rawdata = fs.readFileSync('accounts.json');  
+var student = JSON.parse(rawdata);  
+
+/*let json=require('accounts.json');
+console.log(json);  
+*/
 var adminController = {
     
 stopGame: function(req, res){
@@ -12,6 +21,22 @@ startGame: function(req,res){
 	res.send("Yes");
 
 },
+ getKey: function(req,res){
+	var people = [];
+	var x=req.query.key;
+	console.log("in get key");
+/*
+ 	for(var exKey in student) {
+ 		if(exKey===x)
+ 			res.send(student[exKey]);
+    console.log("Name:"+exKey);
+	}*/
+   /*var privateKey = student.x;
+   	res.send(student.x);
+    console.log(privateKey);
+*/
+res.send(student[x]);
+ },
 
 selectPlayers: function(req,res){
 	var arr = ['Rohan Acharya',	'Nikhil Agrawal','FNU APRAJITA','Tarun Arora','Gaurav Bajaj',

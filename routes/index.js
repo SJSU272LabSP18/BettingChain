@@ -26,7 +26,10 @@ router.get('/rest/admin/stop/game', function(req, res){
     adminctrl.stopGame(req, res)
  
 });
-
+router.get('/rest/admin/get/key', function(req, res){
+    adminctrl.getKey(req, res)
+ 
+});
 router.get('/rest/admin/start/game', function(req, res){
    
     adminctrl.startGame(req,res)

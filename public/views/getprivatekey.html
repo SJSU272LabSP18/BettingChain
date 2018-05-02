@@ -1,0 +1,33 @@
+
+<div class="container">
+  <h2>Enter your name to get your Private key</h2>
+	<form name="myForm" onsubmit="return validateForm()" method="post">
+	Name: <input type="text" name="fname">
+	<input type="submit" value="Submit">
+	</form>
+  <h3>Your private key is</h3> 
+  <div id="div1"></div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+<script>
+
+function validateForm() {
+	var x = document.forms["myForm"]["fname"].value;
+    if (x == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+ $.ajax({url: "rest/admin/get/key?_" + new Date() + "&key="+x, success: function(data){
+       if(data=="")
+       {document.getElementById("div1").innerHTML="Name not found";
+       }
+       else
+       document.getElementById("div1").innerHTML=data; 
+    }});
+
+}
+
+
+</script>

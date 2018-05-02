@@ -29,6 +29,10 @@ angular
                 templateUrl:'views/About-us.html'
                 
             })
+            .when('/getprivatekey',{
+                templateUrl:'views/getprivatekey.html'
+                
+            })
             .when('/statistics', {
                 templateUrl: 'views/statistics.html',
                 controller: 'statisticsCtrl'
