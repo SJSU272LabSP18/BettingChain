@@ -38,6 +38,11 @@ angular
                 templateUrl:'views/admin-prof.html'
                 
             })
+
+            .when('/metamask',{
+                templateUrl:'views/metamask.html'
+                
+            })
             .otherwise({
                 redirectTo: '/dashboard'
             });
