@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="stylesheets/style.css">
-    
-</head>
 
+</head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">Astrum</a>
@@ -28,26 +27,16 @@
         </ul>
     </div>
 </nav>
-
-<main role="main" class="container">
+<main role="main" class="container" style="background-image: url(./img/blockchain.jpg)">
     <div class="starter-template">
      <div class="jumbotron" id="main">
         <h1 style="text-align:center;color:rgb(0,0,4);">Astrum Online Crypto Lottery</h1>
         <p></p>
-        
-        <button class="btn btn-primary" onclick="startgame()">Start game </button>
-       <button class="btn btn-primary" onclick="stopgame()" > Stop game </button>
-       <button class="btn btn-primary" onclick="selectplayers()">Select Players</button>
-       <p id="winner"></p>
-
+        <p><a class="btn btn-primary" role="button" style="background-color:rgb(249,225,5);color:rgb(1,1,16);"><strong>start game</strong></a></p>
+        <p><a class="btn btn-primary" role="button" href="/#stopGame" style="background-color:rgb(249,225,5);color:rgb(1,1,16);"><strong>stop game</strong></a></p>
+<p>hello i admin prof</p>
     </div>
-
-    <h3>And the players are: </h3>
-    <div id="demo3"></div>
-    <h3>And the winner is: </h3>
-    <div id="demo2"></div>
-    <h3>Start: </h3>
-    <div id="demo1"></div>
+    <div></div>
     </div>
 
 </main>
@@ -66,36 +55,8 @@
     </footer>
 </div>
 <script>
-    function startgame()
-    {
-        console.log("game started");
-        $.ajax({url: "rest/admin/start/game?_" + new Date(), success: function(result){
-        document.getElementById("demo1").innerHTML="Yes";
-    }});
-    }
-function stopgame()
-{
-      $.ajax({url: "rest/admin/stop/game?_" + new Date(), success: function(result){
-        console.log(result);
-        document.getElementById("demo2").innerHTML=result;
-    }});
-}
 
-function selectplayers()
-{
-      $.ajax({url: "rest/admin/select/players?_" + new Date(), success: function(result){
-        console.log(result);
-        document.getElementById("demo3").innerHTML=result;
-    }});
-}
-/*function selectplayers()
-{
-    $.ajax({url: "rest/admin/select/players?_" + new Date(), success: function(result){
-        console.log(result);
-        document.getElementById("demo1").innerHTML=result;
-    }});
-}
-*/
+
 </script>
 
 </body>
