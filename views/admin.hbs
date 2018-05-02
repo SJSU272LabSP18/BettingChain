@@ -37,11 +37,17 @@
         
         <button class="btn btn-primary" onclick="startgame()">Start game </button>
        <button class="btn btn-primary" onclick="stopgame()" > Stop game </button>
+       <button class="btn btn-primary" onclick="selectplayers()">Select Players</button>
        <p id="winner"></p>
 
     </div>
+
+    <h3>And the players are: </h3>
+    <div id="demo3"></div>
     <h3>And the winner is: </h3>
-    <div id="demo"></div>
+    <div id="demo2"></div>
+    <h3>Start: </h3>
+    <div id="demo1"></div>
     </div>
 
 </main>
@@ -86,6 +92,9 @@
             console.error(err);
         });
         console.log("game started");
+        $.ajax({url: "rest/admin/start/game?_" + new Date(), success: function(result){
+        document.getElementById("demo1").innerHTML="Yes";
+    }});
     }
 
 function stopgame()
@@ -103,10 +112,25 @@ function stopgame()
               }
           });
         console.log(result);
-        document.getElementById("demo").innerHTML=result;
+        document.getElementById("demo2").innerHTML=result;
     }});
 }
 
+function selectplayers()
+{
+      $.ajax({url: "rest/admin/select/players?_" + new Date(), success: function(result){
+        console.log(result);
+        document.getElementById("demo3").innerHTML=result;
+    }});
+}
+/*function selectplayers()
+{
+    $.ajax({url: "rest/admin/select/players?_" + new Date(), success: function(result){
+        console.log(result);
+        document.getElementById("demo1").innerHTML=result;
+    }});
+}
+*/
 </script>
 
 </body>
