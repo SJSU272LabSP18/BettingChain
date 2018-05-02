@@ -10,8 +10,17 @@ contract BettingEtherColor {
         uint gameId;
         uint winValue;
     }
+    struct GameStatistics {
+        uint gameID;
+        uint gamePool;
+        uint blackPool;
+        uint redPool;
+        uint numberOfBets;
+        string winningColor;
+    }
 
     mapping(uint => Bet) public bets;
+    mapping(uint => GameStatistics) public statistics;
     mapping(uint => Bet) public oldBets;
     uint public oldBetsCounter;
     Bet[] betArray;
@@ -20,6 +29,7 @@ contract BettingEtherColor {
     uint public gameNumber;
     bool public isGameRunning;
     uint public poolFee;
+    string winColor;
 
 
     mapping(uint => uint) public colorTotalAmount; //0 =RED | 1=BLACK
@@ -95,6 +105,7 @@ contract BettingEtherColor {
     //function to get winning address in red vs black
     function transfer_winnings_color_game(string winningColor) public returns (address) {
         require(organiser == msg.sender);
+        winColor = winningColor;
         uint winningColorPool;
         if(keccak256('RED') == keccak256(winningColor)) {
             winningColorPool = colorTotalAmount[0];
@@ -153,8 +164,15 @@ contract BettingEtherColor {
 
     //return (i, bets[i].better, bets[i].betting_choice_color, bets[i].betting_amount);
     //function to clear all bets
-    //deals with color game only as of now
+    //generate statistics
     function clearAllBets() private {
+    
+    statistics[gameNumber]= GameStatistics(gameNumber,
+            totalBettingAmountColorGame,
+            colorTotalAmount[1],
+            colorTotalAmount[0],
+            ticketCounter,
+            winColor);
         for(uint i = 1; i<= ticketCounter;i++) {
             delete bets[i];
         }
