@@ -181,5 +181,6 @@ contract BettingEtherColor {
         }
         ticketCounter=0;
         totalBettingAmountColorGame=0;
+        winColor="";
     }
 }
