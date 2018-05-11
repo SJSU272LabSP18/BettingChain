@@ -38,7 +38,7 @@ Tools, methodology and resources
 - node v 9.10.1
 
 ## Docker Container Details
-Docker pull command : docker pull gshivani08/blockchain-lottery
+Docker pull command : docker pull gshivani08/blockchain-lottery:0.1-beta-rc-68-g7c3109f
 
 ## Application User Website Link
 <br>Astrum is currently hosted on **Amazon Web Services**.</br>
