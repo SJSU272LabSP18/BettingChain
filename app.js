@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 
-
+//Bug Fixed: Run file with enpough Gas in relation with no of transactions in Metamask
+//Take the count of 1 transaction-->1000G
 var passport = require('passport');
 var session = require('express-session');
 var Strategy = require('passport-local').Strategy;
