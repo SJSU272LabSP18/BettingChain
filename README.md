@@ -17,7 +17,7 @@ ASTRUM
 
 <br><b>Use Case Personas: </br></b>  
 The Use case personas are described in **Design_MockUp_Detail.pdf** in brief.
-<br>b>Final Report </br></b> 
+<br><b>Final Report </br></b> 
 **Finalreport-Team15.pdf**
 <br><b>Solution: </br></b>
  
