@@ -17,7 +17,8 @@ ASTRUM
 
 <br><b>Use Case Personas: </br></b>  
 The Use case personas are described in **Design_MockUp_Detail.pdf** in brief.
-      
+<br>b>Final Report </br></b> 
+**Finalreport-Team15.pdf**
 <br><b>Solution: </br></b>
  
 A transparent, secure and trustful crypto-currency online peer-to-peer betting platform that is developed using decentralized block chain technology. 
