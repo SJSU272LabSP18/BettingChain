@@ -13,7 +13,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+//Bug Fixed: Run file with enpough Gas in relation with no of transactions in Metamask
+//Take the count of 1 transaction-->1000G
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
